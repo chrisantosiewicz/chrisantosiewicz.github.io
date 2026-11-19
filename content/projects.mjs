@@ -151,7 +151,12 @@ export default [
         "caption": "Product example: simulated recommendations, not observed conversion rates. “Yard Line 98” denotes the opponent’s two-yard line in this app."
       }
     ],
-    "artifactLinks": [],
+    "artifactLinks": [
+      {
+        "label": "Thesis poster (PDF)",
+        "url": "assets/img/thesis-poster.pdf"
+      }
+    ],
     "slug": "nfl-formation-recommender",
     "sport": "NFL",
     "card": "When should an NFL offense line up in shotgun or under center? I modeled 15 seasons of nflfastR play-by-play in R and built a Shiny app that ranks formation and play calls for any situation. Under center converted 3rd-and-short more often in every season."
