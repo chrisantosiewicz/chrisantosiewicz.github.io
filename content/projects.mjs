@@ -8,23 +8,25 @@ export default [
     "sport": "NFL",
     "category": "NFL",
     "status": "live",
-    "updated": "2026-11-16",
+    "updated": "2026-11-18",
     "title": "NFL Scouting Report Website",
     "subtitle": "Weekly opponent scouting for all 32 teams, rebuilt from play-by-play every week.",
     "card": "An automated scouting site for every NFL matchup. R loads nflverse play-by-play into DuckDB, SQL models break down each offense and defense, and the site shows where an opponent can be attacked, with every number tied to its sample size.",
     "summary": "",
-    "overview": "My senior thesis asked one question about formation choice across 15 seasons of NFL play-by-play. I wanted to take the same data further and turn it into something a coaching staff could use every week: a scouting report on any opponent that rebuilds itself as the season goes.\n\nEvery Tuesday in season, R pulls the latest nflverse play-by-play, schedules, rosters, snap counts and injury reports into DuckDB. A chain of SQL models turns it into one row per play with situation flags, per-game tendencies, season-to-date and last-four-game totals, and league ranks among all 32 teams. An as-of snapshot means a Week 11 report only uses games played before Week 11. Data tests run after the models, and if any of them fails nothing is published, so the last good report stays live. GitHub Actions runs the pipeline, refreshes injuries, lines and weather through game day, and publishes to GitHub Pages.\n\nOn offense the site breaks down run and pass lean against what the situation calls for, early downs, third down by distance, the red zone, late-half and score-state splits, where each team runs and throws, who gets the ball and when, and formation tells under center versus shotgun, which carries the thesis question forward. On defense it shows EPA, success rate and yards allowed on runs versus dropbacks by situation, production allowed to receivers, tight ends and backs, the softest and toughest run lanes, blitz rate, box count and coverage.\n\nEach matchup gets scouting notes in two halves, stopping their offense and attacking their defense, plus an attack plan, a printable one-pager and a predictions tab. After every game, a report card grades each call the notes made against what happened.",
+    "overview": "My senior thesis asked one question about formation choice across 15 seasons of NFL play-by-play. I wanted to take the same data further and turn it into something a coaching staff could use every week: a scouting report on any opponent that rebuilds itself as the season goes.\n\nEvery Tuesday in season, R pulls the latest nflverse play-by-play, schedules, rosters, snap counts and injury reports into DuckDB. A chain of SQL models turns it into one row per play with situation flags, per-game tendencies, season-to-date and last-four-game totals, and league ranks among all 32 teams. An as-of snapshot means a Week 11 report only uses games played before Week 11. Data tests run after the models, and if any of them fails nothing is published, so the last good report stays live. GitHub Actions runs the pipeline, refreshes injuries, lines and weather through game day, and publishes to GitHub Pages.\n\nOn offense the site breaks down run and pass lean against what the situation calls for, early downs, third down by distance, the red zone, late-half and score-state splits, where each team runs and throws, who gets the ball and when, and formation tells under center versus shotgun, which carries the thesis question forward. On defense it shows EPA, success rate and yards allowed on runs versus dropbacks by situation, production allowed to receivers, tight ends and backs, the softest and toughest run lanes, blitz rate, box count and coverage.\n\nEach matchup gets scouting notes in two halves, stopping their offense and attacking their defense, plus an attack plan, a printable one-pager and a predictions tab. After every game, a report card grades each call the notes made against what happened.\n\nThe pipeline runs on its own: the Week 11 report and the latest live-data update were published by the scheduled workflow without anyone touching it.",
     "findingsTitle": "What a coach gets each week",
     "findings": [
       "Scouting notes that point to specific spots to exploit, such as a hot throw area, a run lean or the softest run lane, chosen once so the notes and the report card grade the same thing.",
       "Every number shows its sample, like “54 of 231” targets or “on 190 plays”. A “3 things to know” item needs a top or bottom 10% league rank on at least 30 plays.",
-      "A predictions tab with an Elo win probability next to the market’s, locked before kickoff and graded afterward. It shows win probability only, because my backtest found no signal against the spread or total."
+      "A predictions tab with an Elo win probability next to the sportsbook’s, locked before kickoff and graded afterward. It shows win probability only, because my forecasting backtest found no signal against the spread or total. The weather model from that project is being connected to the site’s forecast updates.",
+      "Accountability every week: after Week 10, the site graded its own calls and predictions. Elo went 8–6 that week, and a version with margin of victory would have gone 9–5."
     ],
     "limitations": [
       "Public data has no full personnel or coverage charting for the current season. Blitz rate and box count come from FTN charting via nflverse, and man/zone coverage uses last season’s participation data.",
       "Early in the season samples are small; the site marks them rather than hiding them.",
       "Notes are drafted from the data each week and replaced by staff notes once those are written.",
-      "Ranks use the current season only. Last season’s rank is shown for context, with a caveat when a team changed play callers."
+      "Ranks use the current season only. Last season’s rank is shown for context, with a caveat when a team changed play callers.",
+      "Call grading is being made fairer: skipping calls on injured top targets, grading on close games and flagging new quarterbacks. That change is in review, not live."
     ],
     "contribution": "I designed and built the project: the definitions every model follows, the SQL models and data tests, the scouting notes and report card logic, the live site and the weekly automation.",
     "tools": [
@@ -78,7 +80,11 @@ export default [
         "alt": "The scouting site home page with a grid of all 32 team logos to pick a team.",
         "caption": "Home page: pick your team to get its attack plan for this week’s opponent."
       }
-    ]
+    ],
+    "related": {
+      "slug": "nfl-forecast-benchmarks",
+      "text": "The predictions tab builds on my NFL Game Forecasting Model, where I test model upgrades against preregistered rules before they reach the site."
+    }
   },
   {
     "title": "Shotgun or Under Center: NFL Formation Recommender",
@@ -231,11 +237,11 @@ export default [
     "title": "NFL Game Forecasting Model",
     "category": "NFL",
     "status": "in progress",
-    "updated": "2026-10-16",
-    "subtitle": "Better than Elo, still behind the market, and reported that way.",
+    "updated": "2026-11-18",
+    "subtitle": "Kickoff rain and wind improved its totals. It still trails the market, and I say so.",
     "summary": "Can historical team performance improve NFL forecasts beyond ratings and market reference lines? Using season-by-season testing, leakage controls, and paired bootstrap comparisons, this project evaluates Elo and ridge models. Ridge improved on Elo but underperformed the line-implied benchmark. A larger tuning grid did not help; sensitivity validation remains unfinished.",
-    "overview": "Can prior-game team performance forecast NFL scoring margins and totals better than Elo ratings, and can it get anywhere near the market? A more complex model can beat a simple baseline without giving any betting advantage, so I set the evaluation rules before running anything.\n\nThe data combines nflverse schedules, final scores, reference spread and total lines, and nflfastR play-by-play features. Each season from 2018 to 2024 is predicted using only earlier seasons for fitting and tuning. The pooled comparison covers 1,675 games from 2019–2024; 2018 is reported separately, and 2025 is locked as a final holdout that has not been touched.\n\nSeparate ridge regressions predict home margin and total from 44 registered team-form and Elo features. A discretized normal turns those into moneyline, spread-cover and over probabilities. A new model only replaces the old one if the paired bootstrap interval (10,000 season-week resamples) for the pooled three-market log loss sits entirely below zero, and no single market gets worse.\n\nRidge beat Elo and a constant baseline but stayed worse than the line-implied benchmark in all three markets. A larger tuning grid made it worse. Five quarterback-feature candidates were then tested against ridge with a Holm correction, and none was promoted. The garbage-time sensitivity check, run at three settings, changed none of these conclusions. This is disciplined model evaluation, not a betting edge.",
-    "contribution": "I set the research question, the evaluation method, the preregistered promotion rule and the locked 2025 holdout. I decided which candidates to test and promote, and ran the long model runs.",
+    "overview": "Can prior-game team performance and game conditions forecast NFL scoring margins and totals better than Elo ratings, and how close can that get to the betting market? A more complex model can beat a simple baseline without giving any betting edge, so every test is written down before the model is fit.\n\nThe data combines nflverse schedules, final scores, reference spread and total lines, nflfastR play-by-play features and kickoff weather. Each season from 2018 to 2024 is predicted using only earlier seasons for fitting and tuning. The pooled comparison covers 1,675 games from 2019–2024; 2018 is reported separately, and 2025 is locked as a final holdout.\n\nSeparate ridge regressions predict home margin and total from 44 registered team-form and Elo features. A discretized normal turns those into moneyline, spread-cover and over probabilities. A new model only replaces the current one if the paired bootstrap interval (10,000 season-week resamples) for the pooled three-market log loss sits entirely below zero, and no single market gets worse. When several candidates are tested together, a Holm correction applies.\n\nRidge beat Elo and a constant baseline but trailed the line-implied benchmark in all three markets. A larger tuning grid made it worse, and five quarterback feature sets were all rejected. The first upgrade came from weather: adding a rain flag and kickoff wind speed (W2) beat ridge under the preregistered rule, with almost all of the gain on over/under. The weather plan was written before any model was fit, and it states that rain and wind had already been looked at against totals, so 2025 cannot serve as a clean confirmation.\n\nThis modeling work is being brought into my NFL scouting site, where its predictions sit next to the sportsbook lines. The site already shows an Elo win probability beside the market’s for every game, locks it before kickoff and grades it afterward; the weather model is being connected to the site’s weekly forecast updates.",
+    "contribution": "I set the research question, the evaluation method, the preregistered promotion rules and the locked 2025 holdout. I approved each test plan, decided which ideas to test and in what order, chose which runs to spend compute on, and ran the long model runs on my laptop.",
     "tools": [
       "Python",
       "NumPy",
@@ -247,7 +253,8 @@ export default [
       "Ridge regression",
       "Walk-forward validation",
       "Paired bootstrap",
-      "Holm correction"
+      "Holm correction",
+      "Preregistration"
     ],
     "dataSources": [
       {
@@ -262,11 +269,28 @@ export default [
         "refresh": "Frozen historical snapshots"
       },
       {
+        "name": "Kickoff weather (nflverse schedules, gamebook text)",
+        "coverage": "2011–2024: 3,811 games, 2,770 outdoor; 173 rain and 314 windy (15+ mph) games"
+      },
+      {
         "name": "The Odds API (separate live-market component)",
         "coverage": "First NFL snapshot on October 2, 2026. Not used in the historical findings or the figure."
       }
     ],
     "findings": [
+      {
+        "finding": "Rain and wind improved the model",
+        "period": "2019–2024",
+        "nGames": 1675,
+        "units": "Pooled three-market log-loss difference, nats per game",
+        "comparison": "W2 (ridge + rain + wind) minus ridge",
+        "estimate": -0.0069,
+        "confidenceInterval95": [
+          -0.0111,
+          -0.0031
+        ],
+        "limitation": "Promoted (Holm-corrected p < 0.0001). The gain is almost all on over/under (−0.0074, interval −0.0114 to −0.0036); moneyline and spread are unchanged. A five-input weather version (W1) also passed at −0.0063; W2 had the lower loss."
+      },
       {
         "finding": "Ridge improved on Elo",
         "period": "2019–2024",
@@ -308,13 +332,13 @@ export default [
       }
     ],
     "limitations": [
-      "These are development results: no profit, ROI, closing-line value or betting edge is claimed.",
-      "The model loses to the market in every market tested.",
+      "These are development results: no profit, ROI, closing-line value or betting edge is claimed. The model still loses to the market overall.",
       "The 2025 holdout is still locked for a single final evaluation.",
+      "The model learned from weather recorded at kickoff, but live predictions use forecasts. The live version logs forecast and kickoff weather side by side to track that gap.",
+      "Kickoff temperature and wind were missing for 46% of outdoor games in 2022 and 21% in 2023; they were filled from each game’s gamebook text, leaving 11 values missing.",
       "Reference lines have an unknown bookmaker and capture time, so this is not a test against decision-time prices.",
       "2018 uses default settings and in-sample sigma and is left out of pooled comparisons.",
-      "The EPA model’s training years overlap the evaluation years, and early training samples are small.",
-      "LightGBM is planned only if a later step justifies it."
+      "The EPA model’s training years overlap the evaluation years, and early training samples are small."
     ],
     "links": {
       "repository": null,
@@ -326,12 +350,21 @@ export default [
       "Walk-forward validation"
     ],
     "image": "assets/img/nfl-forecast-loglos.svg",
-    "imageAlt": "Dot plot of pooled three-market log loss with 95% intervals on 1,675 NFL games, 2019–2024. Lower is better. Line-implied benchmark 1.968, ridge 2.029, Elo 2.050, expanded-grid ridge 2.055, constant 2.134.",
-    "imageCaption": "Pooled three-market log loss, 2019–2024, with 95% season-week bootstrap intervals. Ridge beats Elo and the constant baseline; the market’s lines beat everything.",
+    "imageAlt": "Dot plot of pooled three-market log loss on 1,675 NFL games, 2019–2024, lower is better: line-implied benchmark 1.968, weather model W2 2.022, ridge 2.029, Elo 2.050, expanded-grid ridge 2.055, constant 2.134.",
+    "imageCaption": "Pooled three-market log loss, 2019–2024. Bars are 95% season-week bootstrap intervals; W2’s interval is reported on its difference from ridge (see Findings). The weather model is the best so far, and the market’s lines still beat everything.",
     "imageCredit": "Data: nflverse / nflfastR. Chart drawn from the stored evaluation results.",
     "slug": "nfl-forecast-benchmarks",
     "sport": "NFL",
-    "card": "A walk-forward test of NFL game forecasts on 1,675 games from 2019–2024. My ridge model beat Elo but not the market’s lines, and five quarterback add-ons failed the promotion rule. The Elo ratings now feed the scouting site’s predictions."
+    "card": "A Python model that predicts NFL moneyline, spread and total probabilities, tested walk-forward on 2019–2024 with preregistered rules. Adding kickoff rain and wind improved its totals; five quarterback feature sets did not help. It still trails the betting market.",
+    "notes": [
+      "Quarterback features: five candidate feature sets, none promoted (best Holm-adjusted p 0.56).",
+      "Quarterback-change Elo carryover: a 10-minute check on stored predictions found no weakness to fix in weeks 1–4 for teams that changed quarterbacks (moneyline gap −0.003, interval −0.045 to +0.039, 220 games), so the 3-hour build was skipped.",
+      "Close games versus blowouts (descriptive): ridge’s predicted margin was closer than the closing line in 54% of games decided by 8 or fewer points (890 games), but in only 32% of blowouts of 17 or more (433 games). Games are grouped by final margin, so this is descriptive only."
+    ],
+    "related": {
+      "slug": "nfl-scouting-report",
+      "text": "This model’s work is being implemented on my NFL Scouting Report Website, alongside sportsbook predictions."
+    }
   },
   {
     "title": "MLS Partnership Tracker",

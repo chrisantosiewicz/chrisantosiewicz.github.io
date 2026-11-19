@@ -115,11 +115,13 @@ const projectPage = (p, i) => {
   <p class="project-subtitle">${esc(p.subtitle)}</p>
   ${links.length ? `<div class="project-links">${links.join('')}</div>` : ''}
 </header>
+${p.related ? (() => { const r = projects.find(x => x.slug === p.related.slug); return `<div class="wrap"><a class="related-note" href="${base}projects/${r.slug}/"><span>RELATED PROJECT</span>${esc(p.related.text)} <em>${esc(r.title)} →</em></a></div>`; })() : ''}
 <div class="wrap project-figure-wrap">${figure(p.image, p.imageAlt, p.imageCaption, p.imageCredit, base)}</div>
 <div class="wrap project-layout">
   <div class="project-main">
     <section class="detail-section lead-section"><h2>Overview</h2>${paras(p.overview)}</section>
     ${findingsBlock(p)}
+    ${p.notes?.length ? `<section class="detail-section"><h2>Ideas tested and dropped</h2><ul class="note-list">${p.notes.map(n => `<li>${esc(n)}</li>`).join('')}</ul></section>` : ''}
     ${(p.extraImages || []).map(x => figure(x.src, x.alt, x.caption, null, base)).join('')}
     <section class="detail-section"><h2>Limitations and what’s left</h2><ul class="note-list">${p.limitations.map(l => `<li>${esc(l)}</li>`).join('')}</ul></section>
     ${p.artifactNote ? `<p class="artifact-note">${esc(p.artifactNote)}</p>` : ''}

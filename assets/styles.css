@@ -107,3 +107,7 @@
 @media(max-width:500px){.skill-row div{grid-template-columns:1fr;gap:2px}.intro .hero-description{font-size:14.5px}}
 .project-image{object-fit:contain}.project-image[src$=".jpg"]{object-fit:cover;object-position:top center}
 @media(max-width:800px){.home .section-heading{align-items:flex-start}}
+.related-note{display:block;margin:0 0 22px;padding:16px 20px;border:1px solid #4c5a3d;border-left:3px solid var(--olive);background:#20271c;border-radius:4px;font-size:14px;line-height:1.7;color:#c9d0bf;transition:border-color .2s}
+.related-note:hover{border-color:var(--olive)}
+.related-note span{display:block;font-size:9px;letter-spacing:1.6px;color:var(--olive);margin-bottom:4px}
+.related-note em{font-family:var(--font);font-style:normal;color:var(--olive);white-space:nowrap}
