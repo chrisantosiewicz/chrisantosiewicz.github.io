@@ -63,8 +63,8 @@ export default [
       }
     ],
     "links": {
-      "repository": "https://github.com/chrisantosiewicz/nfl-opponent-report",
-      "demo": "https://chrisantosiewicz.github.io/nfl-opponent-report/"
+      "repository": "https://github.com/chrisantosiewicz/NFL-opponent-report",
+      "demo": "https://chrisantosiewicz.github.io/NFL-opponent-report/"
     },
     "tags": [
       "R · SQL · DuckDB",
