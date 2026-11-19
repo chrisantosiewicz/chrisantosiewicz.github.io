@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#141713">
+  <meta name="description" content="Weekly opponent scouting for all 32 teams, rebuilt from play-by-play every week.">
+  <title>NFL Scouting Report Website · Chris Antosiewicz</title>
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/styles.css">
+  <script src="../../assets/site.js" defer></script>
+</head>
+<body class="project-page project-nfl-scouting-report">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="header"><a class="brand" href="../../" aria-label="Chris Antosiewicz home"><span class="monogram">ca<span>↗</span></span><span>CHRIS ANTOSIEWICZ<span class="brand-sub">RESEARCH &amp; ANALYTICS</span></span></a><nav aria-label="Main navigation"><a href="../../#projects">Projects</a><a class="nav-contact" href="https://www.linkedin.com/in/chris-antosiewicz-ca2026" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a></nav></header>
+<main id="main">
+<article class="project-article">
+<header class="project-hero wrap">
+  <a class="back-link" href="../../#projects"><span aria-hidden="true">←</span> All projects</a>
+  <p class="eyebrow"><span class="status-dot"></span> NFL / LIVE / UPDATED NOVEMBER 2026</p>
+  <h1>NFL Scouting Report Website</h1>
+  <p class="project-subtitle">Weekly opponent scouting for all 32 teams, rebuilt from play-by-play every week.</p>
+  <div class="project-links"><a class="button ghost" href="https://github.com/chrisantosiewicz/nfl-opponent-report" target="_blank" rel="noopener noreferrer">Code on GitHub <span aria-hidden="true">↗</span></a><a class="button ghost" href="https://chrisantosiewicz.github.io/nfl-opponent-report/" target="_blank" rel="noopener noreferrer">Live site <span aria-hidden="true">↗</span></a></div>
+</header>
+<div class="wrap project-figure-wrap"><figure class="detail-figure"><a class="figure-link" href="../../assets/img/nfl-scout-page.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open full-size image"><img src="../../assets/img/nfl-scout-page.jpg" alt="The live scout page scouting the Tampa Bay Buccaneers for the Detroit Lions in Week 11 of 2026: a matchup header with injury flags, a note that data runs through Week 9 and only uses games before Week 11, and scouting notes that cite sample sizes such as 54 of 231 targets and 190 plays."></a><figcaption>Live scout page: every team, every week, built from play-by-play. Each number shows its sample and uses only games already played. <span class="credit">Screenshot from the live site, Week 11 of 2026. Data: nflverse.</span></figcaption></figure></div>
+<div class="wrap project-layout">
+  <div class="project-main">
+    <section class="detail-section lead-section"><h2>Overview</h2><p>My senior thesis asked one question about formation choice across 15 seasons of NFL play-by-play. I wanted to take the same data further and turn it into something a coaching staff could use every week: a scouting report on any opponent that rebuilds itself as the season goes.</p><p>Every Tuesday in season, R pulls the latest nflverse play-by-play, schedules, rosters, snap counts and injury reports into DuckDB. A chain of SQL models turns it into one row per play with situation flags, per-game tendencies, season-to-date and last-four-game totals, and league ranks among all 32 teams. An as-of snapshot means a Week 11 report only uses games played before Week 11. Data tests run after the models, and if any of them fails nothing is published, so the last good report stays live. GitHub Actions runs the pipeline, refreshes injuries, lines and weather through game day, and publishes to GitHub Pages.</p><p>On offense the site breaks down run and pass lean against what the situation calls for, early downs, third down by distance, the red zone, late-half and score-state splits, where each team runs and throws, who gets the ball and when, and formation tells under center versus shotgun, which carries the thesis question forward. On defense it shows EPA, success rate and yards allowed on runs versus dropbacks by situation, production allowed to receivers, tight ends and backs, the softest and toughest run lanes, blitz rate, box count and coverage.</p><p>Each matchup gets scouting notes in two halves, stopping their offense and attacking their defense, plus an attack plan, a printable one-pager and a predictions tab. After every game, a report card grades each call the notes made against what happened.</p></section>
+    <section class="detail-section"><h2>What a coach gets each week</h2><ol class="findings-list"><li>Scouting notes that point to specific spots to exploit, such as a hot throw area, a run lean or the softest run lane, chosen once so the notes and the report card grade the same thing.</li><li>Every number shows its sample, like “54 of 231” targets or “on 190 plays”. A “3 things to know” item needs a top or bottom 10% league rank on at least 30 plays.</li><li>A predictions tab with an Elo win probability next to the market’s, locked before kickoff and graded afterward. It shows win probability only, because my backtest found no signal against the spread or total.</li></ol></section>
+    <figure class="detail-figure"><a class="figure-link" href="../../assets/img/nfl-scout-home.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open full-size image"><img src="../../assets/img/nfl-scout-home.jpg" alt="The scouting site home page with a grid of all 32 team logos to pick a team."></a><figcaption>Home page: pick your team to get its attack plan for this week’s opponent.</figcaption></figure>
+    <section class="detail-section"><h2>Limitations and what’s left</h2><ul class="note-list"><li>Public data has no full personnel or coverage charting for the current season. Blitz rate and box count come from FTN charting via nflverse, and man/zone coverage uses last season’s participation data.</li><li>Early in the season samples are small; the site marks them rather than hiding them.</li><li>Notes are drafted from the data each week and replaced by staff notes once those are written.</li><li>Ranks use the current season only. Last season’s rank is shown for context, with a caveat when a team changed play callers.</li></ul></section>
+    
+  </div>
+  <aside class="project-side" aria-label="Project details">
+    <section><h2>My role</h2><p>I designed and built the project: the definitions every model follows, the SQL models and data tests, the scouting notes and report card logic, the live site and the weekly automation.</p></section>
+    <section><h2>Tools and methods</h2><div class="chip-list"><span>R</span><span>nflreadr</span><span>SQL</span><span>DuckDB</span><span>Quarto</span><span>JavaScript</span><span>GitHub Actions</span><span>GitHub Pages</span><span>As-of (leakage-safe) joins</span><span>Window functions</span><span>Data tests</span><span>Elo ratings</span></div>
+    </section>
+    <section><h2>Data</h2><ul class="source-list"><li><strong>nflverse (nflreadr / nflfastR)</strong><span>Play-by-play, schedules, rosters, snap counts, trades and official injury reports; 2026 season plus earlier seasons for league baselines</span><span>Weekly in season, with updates Thursday through Monday</span></li><li><strong>FTN charting via nflverse</strong><span>Blitz rate, box count and play action for the current season</span></li><li><strong>nflverse schedule lines</strong><span>Spread, total and moneylines for the betting trends and market win probability</span></li><li><strong>Open-Meteo</strong><span>Kickoff-hour forecast at each stadium</span></li></ul></section>
+    <p class="side-note">The app runs on free hosting and can take a few seconds to wake up.</p>
+  </aside>
+</div>
+<nav class="wrap project-pager" aria-label="More projects">
+  <a href="../../projects/mls-partnership-tracker/"><span>← Previous</span>MLS Partnership Tracker</a>
+  <a href="../../projects/nfl-formation-recommender/"><span>Next →</span>Shotgun or Under Center: NFL Formation Recommender</a>
+</nav>
+</article>
+</main>
+<footer class="wrap footer"><span>© <span class="year">2026</span> Chris Antosiewicz</span><a href="#main">Back to top ↑</a></footer>
+</body>
+</html>

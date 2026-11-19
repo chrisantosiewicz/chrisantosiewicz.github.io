@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#141713">
+  <meta name="description" content="Better than Elo, still behind the market, and reported that way.">
+  <title>NFL Game Forecasting Model · Chris Antosiewicz</title>
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/styles.css">
+  <script src="../../assets/site.js" defer></script>
+</head>
+<body class="project-page project-nfl-forecast-benchmarks">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="header"><a class="brand" href="../../" aria-label="Chris Antosiewicz home"><span class="monogram">ca<span>↗</span></span><span>CHRIS ANTOSIEWICZ<span class="brand-sub">RESEARCH &amp; ANALYTICS</span></span></a><nav aria-label="Main navigation"><a href="../../#projects">Projects</a><a class="nav-contact" href="https://www.linkedin.com/in/chris-antosiewicz-ca2026" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a></nav></header>
+<main id="main">
+<article class="project-article">
+<header class="project-hero wrap">
+  <a class="back-link" href="../../#projects"><span aria-hidden="true">←</span> All projects</a>
+  <p class="eyebrow"><span class="status-dot"></span> NFL / IN PROGRESS / UPDATED OCTOBER 2026</p>
+  <h1>NFL Game Forecasting Model</h1>
+  <p class="project-subtitle">Better than Elo, still behind the market, and reported that way.</p>
+  
+</header>
+<div class="wrap project-figure-wrap"><figure class="detail-figure"><a class="figure-link" href="../../assets/img/nfl-forecast-loglos.svg" target="_blank" rel="noopener noreferrer" aria-label="Open full-size image"><img src="../../assets/img/nfl-forecast-loglos.svg" alt="Dot plot of pooled three-market log loss with 95% intervals on 1,675 NFL games, 2019–2024. Lower is better. Line-implied benchmark 1.968, ridge 2.029, Elo 2.050, expanded-grid ridge 2.055, constant 2.134."></a><figcaption>Pooled three-market log loss, 2019–2024, with 95% season-week bootstrap intervals. Ridge beats Elo and the constant baseline; the market’s lines beat everything. <span class="credit">Data: nflverse / nflfastR. Chart drawn from the stored evaluation results.</span></figcaption></figure></div>
+<div class="wrap project-layout">
+  <div class="project-main">
+    <section class="detail-section lead-section"><h2>Overview</h2><p>Can prior-game team performance forecast NFL scoring margins and totals better than Elo ratings, and can it get anywhere near the market? A more complex model can beat a simple baseline without giving any betting advantage, so I set the evaluation rules before running anything.</p><p>The data combines nflverse schedules, final scores, reference spread and total lines, and nflfastR play-by-play features. Each season from 2018 to 2024 is predicted using only earlier seasons for fitting and tuning. The pooled comparison covers 1,675 games from 2019–2024; 2018 is reported separately, and 2025 is locked as a final holdout that has not been touched.</p><p>Separate ridge regressions predict home margin and total from 44 registered team-form and Elo features. A discretized normal turns those into moneyline, spread-cover and over probabilities. A new model only replaces the old one if the paired bootstrap interval (10,000 season-week resamples) for the pooled three-market log loss sits entirely below zero, and no single market gets worse.</p><p>Ridge beat Elo and a constant baseline but stayed worse than the line-implied benchmark in all three markets. A larger tuning grid made it worse. Five quarterback-feature candidates were then tested against ridge with a Holm correction, and none was promoted. The garbage-time sensitivity check, run at three settings, changed none of these conclusions. This is disciplined model evaluation, not a betting edge.</p></section>
+    <section class="detail-section"><h2>Findings</h2>
+<p class="table-caption">Pooled three-market log-loss difference, nats per game. 2019–2024, 1,675 games. Negative favors the first model.</p>
+<div class="table-scroll"><table class="findings-table">
+<thead><tr><th scope="col">Comparison</th><th scope="col">Estimate</th><th scope="col">95% interval</th></tr></thead><tbody>
+<tr><th scope="row">Ridge improved on Elo<span>Ridge minus Elo</span></th><td>-0.0215</td><td>-0.0338 to -0.0094</td></tr>
+<tr><th scope="row">Ridge underperformed the line-implied reference<span>Ridge minus line-implied benchmark</span></th><td>+0.0606</td><td>+0.0423 to +0.0787</td></tr>
+<tr><th scope="row">Expanding the tuning grid worsened the candidate<span>375-point grid minus original 99-point ridge</span></th><td>+0.026</td><td>+0.0174 to +0.0348</td></tr>
+</tbody></table></div>
+<ul class="note-list"><li><strong>Ridge improved on Elo.</strong> Development comparison; 2018 excluded. Unchanged under all three garbage-time settings.</li><li><strong>Ridge underperformed the line-implied reference.</strong> Reference bookmaker and capture time unknown; not a decision-time price or profitability test.</li><li><strong>Expanding the tuning grid worsened the candidate.</strong> Adaptively proposed after observing the original grid edge; not promoted.</li></ul></section>
+    
+    <section class="detail-section"><h2>Limitations and what’s left</h2><ul class="note-list"><li>These are development results: no profit, ROI, closing-line value or betting edge is claimed.</li><li>The model loses to the market in every market tested.</li><li>The 2025 holdout is still locked for a single final evaluation.</li><li>Reference lines have an unknown bookmaker and capture time, so this is not a test against decision-time prices.</li><li>2018 uses default settings and in-sample sigma and is left out of pooled comparisons.</li><li>The EPA model’s training years overlap the evaluation years, and early training samples are small.</li><li>LightGBM is planned only if a later step justifies it.</li></ul></section>
+    
+  </div>
+  <aside class="project-side" aria-label="Project details">
+    <section><h2>My role</h2><p>I set the research question, the evaluation method, the preregistered promotion rule and the locked 2025 holdout. I decided which candidates to test and promote, and ran the long model runs.</p></section>
+    <section><h2>Tools and methods</h2><div class="chip-list"><span>Python</span><span>NumPy</span><span>Polars</span><span>nflreadpy</span><span>Matplotlib</span><span>pytest</span><span>Elo</span><span>Ridge regression</span><span>Walk-forward validation</span><span>Paired bootstrap</span><span>Holm correction</span></div>
+    </section>
+    <section><h2>Data</h2><ul class="source-list"><li><strong>nflverse schedules, scores and reference lines</strong><span>2017 for training history; 2018–2024 for development; 2019–2024 for the pooled evaluation</span><span>1,675 pooled games, plus 267 games from 2018 reported separately</span><span>Frozen historical snapshots</span></li><li><strong>nflfastR play-by-play (nflverse)</strong><span>2017–2024</span><span>Frozen historical snapshots</span></li><li><strong>The Odds API (separate live-market component)</strong><span>First NFL snapshot on October 2, 2026. Not used in the historical findings or the figure.</span></li></ul></section>
+    
+  </aside>
+</div>
+<nav class="wrap project-pager" aria-label="More projects">
+  <a href="../../projects/mlb-next-pitch-model/"><span>← Previous</span>MLB Next-Pitch Model and Matchup Report</a>
+  <a href="../../projects/mls-partnership-tracker/"><span>Next →</span>MLS Partnership Tracker</a>
+</nav>
+</article>
+</main>
+<footer class="wrap footer"><span>© <span class="year">2026</span> Chris Antosiewicz</span><a href="#main">Back to top ↑</a></footer>
+</body>
+</html>

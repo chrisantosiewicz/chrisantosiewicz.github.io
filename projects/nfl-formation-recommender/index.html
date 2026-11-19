@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#141713">
+  <meta name="description" content="Machine-learning formation recommendations from 15 seasons of NFL play-by-play">
+  <title>Shotgun or Under Center: NFL Formation Recommender · Chris Antosiewicz</title>
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/styles.css">
+  <script src="../../assets/site.js" defer></script>
+</head>
+<body class="project-page project-nfl-formation-recommender">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="header"><a class="brand" href="../../" aria-label="Chris Antosiewicz home"><span class="monogram">ca<span>↗</span></span><span>CHRIS ANTOSIEWICZ<span class="brand-sub">RESEARCH &amp; ANALYTICS</span></span></a><nav aria-label="Main navigation"><a href="../../#projects">Projects</a><a class="nav-contact" href="https://www.linkedin.com/in/chris-antosiewicz-ca2026" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a></nav></header>
+<main id="main">
+<article class="project-article">
+<header class="project-hero wrap">
+  <a class="back-link" href="../../#projects"><span aria-hidden="true">←</span> All projects</a>
+  <p class="eyebrow"><span class="status-dot"></span> NFL / COMPLETED / UPDATED MAY 2026</p>
+  <h1>Shotgun or Under Center: NFL Formation Recommender</h1>
+  <p class="project-subtitle">Machine-learning formation recommendations from 15 seasons of NFL play-by-play</p>
+  <div class="project-links"><a class="button ghost" href="https://chrisantosiewicz.shinyapps.io/nfl-formation-recommender/" target="_blank" rel="noopener noreferrer">Interactive app <span aria-hidden="true">↗</span></a><a class="button ghost" href="../../assets/img/thesis-poster-original.pdf">Original presentation poster (PDF) <span aria-hidden="true">↗</span></a></div>
+</header>
+<div class="wrap project-figure-wrap"><figure class="detail-figure"><a class="figure-link" href="../../assets/img/thesis-third-short.png" target="_blank" rel="noopener noreferrer" aria-label="Open full-size image"><img src="../../assets/img/thesis-third-short.png" alt="Line chart of NFL 3rd-and-short conversion rates from 2011 to 2025. The olive under center line sits above the light shotgun line in every season, peaking at 70.4% in 2022 and ending at 64.4% in 2025; shotgun ranges from about 52% to 61% and ends at 58.1%. A callout marks the 14.6-point gap in 2022."></a><figcaption>Under center has converted 3rd-and-1 to 3rd-and-3 more often than shotgun in every season since 2011, peaking at a 14.6-point edge in 2022. The rates are observational: coaches choose when to line up under center. <span class="credit">Data: nflfastR play-by-play (nflverse). Analysis and chart: Chris Antosiewicz, Syracuse University senior thesis (2026).</span></figcaption></figure></div>
+<div class="wrap project-layout">
+  <div class="project-main">
+    <section class="detail-section lead-section"><h2>Overview</h2><p>Every NFL snap starts with a choice between shotgun and under center, yet that choice is usually driven by habit and scheme identity rather than situational evidence. Shotgun usage rose from 40.7% of run and pass plays in 2011 to 72.2% in 2023, but league-wide EPA per play showed no matching improvement, and 2023 was the lowest-EPA season in the sample. This project asks a narrower question: in which situations does each formation-play combination (Shotgun Pass, Shotgun Run, Under Center Pass, Under Center Run) produce better expected outcomes? Using public nflfastR play-by-play data, I first described 15 seasons of trends, then studied 3rd-and-short conversion, formation switching, and goal-line touchdown rates. Logistic regression and a tuned decision tree, trained on 2016–2023 and tested on 2024–2025, showed which game-state variables drive formation choice. Eight Random Forest models predict EPA and yards gained for each combination, using a lagged quarterback quality composite, scramble removal, a 10,000-draw residual simulation, and a sample-size reliability system that suppresses thinly supported recommendations. Single-play prediction is weak (EPA R² at most 0.012), but situation-level estimates are more useful (yards R² 0.76 across 150 test cells). The work is packaged as a Quarto site and a Shiny recommender app.</p></section>
+    <section class="detail-section"><h2>Findings</h2><ol class="findings-list"><li>Shotgun share of NFL run/pass plays rose from 40.7% (2011) to a 72.2% peak (2023), while league EPA per play showed no matching gain; 2023 was the lowest-EPA season (−0.035). Descriptive, not causal.</li><li>On 3rd down with 1–3 yards to go, under center converted more often than shotgun in every season 2011–2025: 64.5% vs 56.9% pooled (gap 7.6 pts, 95% CI 6.4–8.7; n = 29,050), peaking at 14.6 pts in 2022. Observational; affected by selection bias.</li><li>Random Forest single-play R² was ≤0.012 for EPA on 2024–25 test data, but across 150 situation cells the simulation reached EPA R² 0.315 (RMSE 0.210) and yards R² 0.760 (MAE 0.608 yd). The recommender matched the best observed call in 42 of 64 down-distance cells (65.6%).</li></ol></section>
+    <figure class="detail-figure"><a class="figure-link" href="../../assets/img/thesis-shiny.png" target="_blank" rel="noopener noreferrer" aria-label="Open full-size image"><img src="../../assets/img/thesis-shiny.png" alt="Shiny app example with formation rankings, simulated EPA distributions and uncertainty ranges for third-and-two near the goal line."></a><figcaption>Product example: simulated recommendations, not observed conversion rates. “Yard Line 98” denotes the opponent’s two-yard line in this app.</figcaption></figure>
+    <section class="detail-section"><h2>Limitations and what’s left</h2><ul class="note-list"><li>Observational data: formation choice is not random (selection bias)</li><li>No defensive personnel, offensive personnel, motion, or play-action flags in public data</li><li>nflfastR counts pistol as shotgun</li><li>Models trained on 2016–2023 may lag current tactics; retraining is planned, not done</li><li>Single-play predictive power is very low; Under Center Pass and medium-distance EPA estimates are unreliable</li><li>Each play is optimized in isolation, with no drive- or game-level strategy</li></ul></section>
+    <p class="artifact-note">This is the poster as presented. Its conclusion has a wording error (situational data cannot fully explain coaching decisions), and some template placeholder text remains.</p>
+  </div>
+  <aside class="project-side" aria-label="Project details">
+    <section><h2>My role</h2><p>Sole author: this was my Syracuse University senior thesis (2026). I pulled and cleaned the data, ran the descriptive analysis, and built the logistic regression, decision tree and eight Random Forest models, the quarterback quality composite, the residual simulation and the reliability tiers. I validated on 2024–2025 and built the Shiny app, Quarto site, thesis and poster. Rodney Paul advised the project. The data and EPA/CPOE metrics come from nflverse/nflfastR.</p></section>
+    <section><h2>Tools and methods</h2><div class="chip-list"><span>R</span><span>tidyverse/dplyr</span><span>ggplot2</span><span>nflfastR</span><span>nflreadr</span><span>randomForest</span><span>rpart</span><span>pROC</span><span>caret</span><span>xgboost (benchmark)</span><span>boot</span><span>Shiny</span><span>shinydashboard</span><span>shinyapps.io (rsconnect)</span><span>Quarto</span><span>Logistic regression</span><span>Decision tree</span><span>Random Forest</span><span>Monte Carlo residual simulation</span><span>Temporal train/test validation</span></div>
+    </section>
+    <section><h2>Data</h2><ul class="source-list"><li><strong>nflfastR play-by-play (nflverse)</strong><span>338,246 modeling plays (269,903 train / 68,343 test)</span><span>Updated in-season by nflverse; thesis models are static</span></li></ul></section>
+    <p class="side-note">The app runs on free hosting and can take a few seconds to wake up.</p>
+  </aside>
+</div>
+<nav class="wrap project-pager" aria-label="More projects">
+  <a href="../../projects/nfl-scouting-report/"><span>← Previous</span>NFL Scouting Report Website</a>
+  <a href="../../projects/mlb-next-pitch-model/"><span>Next →</span>MLB Next-Pitch Model and Matchup Report</a>
+</nav>
+</article>
+</main>
+<footer class="wrap footer"><span>© <span class="year">2026</span> Chris Antosiewicz</span><a href="#main">Back to top ↑</a></footer>
+</body>
+</html>

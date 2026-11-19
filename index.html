@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#141713">
+  <meta name="description" content="Chris Antosiewicz, Syracuse Sport Analytics graduate: NFL and MLB models, an automated NFL scouting report, and more.">
+  <title>Chris Antosiewicz · Sports Analytics</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/styles.css">
+  <script src="assets/site.js" defer></script>
+</head>
+<body class="home">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="header"><a class="brand" href="" aria-label="Chris Antosiewicz home"><span class="monogram">ca<span>↗</span></span><span>CHRIS ANTOSIEWICZ<span class="brand-sub">RESEARCH &amp; ANALYTICS</span></span></a><nav aria-label="Main navigation"><a href="#projects">Projects</a><a class="nav-contact" href="https://www.linkedin.com/in/chris-antosiewicz-ca2026" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a></nav></header>
+<main id="main">
+<section class="hero intro wrap" aria-labelledby="hero-title">
+  <div class="hero-copy"><p class="eyebrow"><span class="status-dot"></span> SPORT ANALYTICS · SYRACUSE UNIVERSITY</p><h1 id="hero-title">Hi, I’m Chris <em>Antosiewicz.</em></h1>
+  <p class="hero-description">I’m a cum laude Sport Analytics graduate from Syracuse who turns raw data into models and reports that decision-makers can use. I mostly work with football and baseball data, and I’ve worked with live data for an MLS academy, college athletic programs and Chicago’s economic development arm.</p>
+  <p class="hero-description">My senior thesis modeled 15 seasons of NFL play-by-play in R. I’m expanding on it with an automated weekly scouting report that uses SQL models to break down the trends behind every NFL team and show how your team can prepare for game day.</p>
+  <div class="hero-actions"><a class="button primary" href="#projects">Explore my projects <span aria-hidden="true">↓</span></a><a class="text-link" href="https://www.linkedin.com/in/chris-antosiewicz-ca2026" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a></div>
+  <dl class="skill-row"><div><dt>Languages</dt><dd>R, Python, SQL</dd></div><div><dt>Tools</dt><dd>DuckDB, Shiny, Quarto, GitHub Actions</dd></div><div><dt>Methods</dt><dd>XGBoost, Random Forest, ridge and logistic regression, walk-forward validation</dd></div></dl></div>
+  <a class="featured" href="projects/nfl-scouting-report/"><span class="featured-top"><span>LATEST PROJECT</span><span>LIVE</span></span><img src="assets/img/nfl-scout-home.jpg" alt="The scouting site home page with a grid of all 32 NFL team logos to pick a team."><span class="featured-body"><strong>NFL Scouting Report Website</strong><span>Weekly opponent scouting for all 32 teams, rebuilt from play-by-play every week.</span><span class="featured-cta">Read project →</span></span></a>
+</section>
+<section class="research wrap" id="projects" aria-labelledby="projects-title"><div class="section-heading"><div><p class="eyebrow">01 / PROJECTS</p><h2 id="projects-title">Selected <em>projects.</em></h2></div><span class="project-status">5 PROJECTS</span></div>
+<div class="project-grid">
+<article class="project-card">
+  <a class="project-preview" href="projects/nfl-scouting-report/" tabindex="-1" aria-hidden="true"><img class="project-image" src="assets/img/nfl-scout-page.jpg" alt="" loading="eager"></a>
+  <div class="project-body">
+    <div class="project-meta"><span>NFL</span><span>LIVE</span></div>
+    <h3><a class="card-link" href="projects/nfl-scouting-report/">NFL Scouting Report Website</a></h3>
+    <p>An automated scouting site for every NFL matchup. R loads nflverse play-by-play into DuckDB, SQL models break down each offense and defense, and the site shows where an opponent can be attacked, with every number tied to its sample size.</p>
+    <div class="project-bottom"><div class="project-tags"><span>R · SQL · DuckDB</span><span>Automated weekly</span></div><span class="detail-button" aria-hidden="true">Read project →</span></div>
+  </div>
+</article>
+<article class="project-card">
+  <a class="project-preview" href="projects/nfl-formation-recommender/" tabindex="-1" aria-hidden="true"><img class="project-image" src="assets/img/thesis-third-short.png" alt="" loading="eager"></a>
+  <div class="project-body">
+    <div class="project-meta"><span>NFL</span><span>COMPLETED</span></div>
+    <h3><a class="card-link" href="projects/nfl-formation-recommender/">Shotgun or Under Center: NFL Formation Recommender</a></h3>
+    <p>When should an NFL offense line up in shotgun or under center? I modeled 15 seasons of nflfastR play-by-play in R and built a Shiny app that ranks formation and play calls for any situation. Under center converted 3rd-and-short more often in every season.</p>
+    <div class="project-bottom"><div class="project-tags"><span>Senior thesis</span><span>R · Shiny</span></div><span class="detail-button" aria-hidden="true">Read project →</span></div>
+  </div>
+</article>
+<article class="project-card">
+  <a class="project-preview" href="projects/mlb-next-pitch-model/" tabindex="-1" aria-hidden="true"><img class="project-image" src="assets/img/mlb-calibration.png" alt="" loading="lazy"></a>
+  <div class="project-body">
+    <div class="project-meta"><span>MLB</span><span>IN PROGRESS</span></div>
+    <h3><a class="card-link" href="projects/mlb-next-pitch-model/">MLB Next-Pitch Model and Matchup Report</a></h3>
+    <p>Predicting the next pitch type from game context on 2.85 million Statcast pitches. On a preregistered 2026 test, XGBoost hit 44.7% exact-pitch accuracy versus 37.2% for a pitcher’s usual mix. Includes a Shiny matchup app and an advance report.</p>
+    <div class="project-bottom"><div class="project-tags"><span>R · XGBoost</span><span>Shiny</span></div><span class="detail-button" aria-hidden="true">Read project →</span></div>
+  </div>
+</article>
+<article class="project-card">
+  <a class="project-preview" href="projects/nfl-forecast-benchmarks/" tabindex="-1" aria-hidden="true"><img class="project-image" src="assets/img/nfl-forecast-loglos.svg" alt="" loading="lazy"></a>
+  <div class="project-body">
+    <div class="project-meta"><span>NFL</span><span>IN PROGRESS</span></div>
+    <h3><a class="card-link" href="projects/nfl-forecast-benchmarks/">NFL Game Forecasting Model</a></h3>
+    <p>A walk-forward test of NFL game forecasts on 1,675 games from 2019–2024. My ridge model beat Elo but not the market’s lines, and five quarterback add-ons failed the promotion rule. The Elo ratings now feed the scouting site’s predictions.</p>
+    <div class="project-bottom"><div class="project-tags"><span>Python</span><span>Walk-forward validation</span></div><span class="detail-button" aria-hidden="true">Read project →</span></div>
+  </div>
+</article>
+<article class="project-card">
+  <a class="project-preview" href="projects/mls-partnership-tracker/" tabindex="-1" aria-hidden="true"><img class="project-image" src="assets/img/mls-research-design.svg" alt="" loading="lazy"></a>
+  <div class="project-body">
+    <div class="project-meta"><span>MLS</span><span>IN PROGRESS</span></div>
+    <h3><a class="card-link" href="projects/mls-partnership-tracker/">MLS Partnership Tracker</a></h3>
+    <p>A sourced, versioned database of MLS club partnerships, set up to measure public attention around matches and new deals. In progress: the club reference data and a tested pipeline scaffold are built. No findings yet.</p>
+    <div class="project-bottom"><div class="project-tags"><span>Soccer · MLS</span><span>Partnership research</span></div><span class="detail-button" aria-hidden="true">Read project →</span></div>
+  </div>
+</article>
+</div></section>
+<section class="contact wrap" aria-labelledby="contact-title"><p class="eyebrow">02 / CONTACT</p><div class="contact-row"><h2 id="contact-title">Let’s talk <em>sports &amp; data.</em></h2><a class="button primary" href="https://www.linkedin.com/in/chris-antosiewicz-ca2026" target="_blank" rel="noopener noreferrer">Connect on LinkedIn <span aria-hidden="true">↗</span></a></div></section>
+</main>
+<footer class="wrap footer"><span>© <span class="year">2026</span> Chris Antosiewicz</span><a href="#main">Back to top ↑</a></footer>
+</body>
+</html>
