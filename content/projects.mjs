@@ -68,10 +68,10 @@ export default [
       "R · SQL · DuckDB",
       "Automated weekly"
     ],
-    "image": "assets/img/nfl-scout-page.jpg",
-    "imageAlt": "The live scout page scouting the Tampa Bay Buccaneers for the Detroit Lions in Week 11 of 2026: a matchup header with injury flags, a note that data runs through Week 9 and only uses games before Week 11, and scouting notes that cite sample sizes such as 54 of 231 targets and 190 plays.",
-    "imageCaption": "Live scout page: every team, every week, built from play-by-play. Each number shows its sample and uses only games already played.",
-    "imageCredit": "Screenshot from the live site, Week 11 of 2026. Data: nflverse.",
+    "image": "assets/img/nfl-scout-bears.jpg",
+    "imageAlt": "The live Bears scout page for Week 11 of 2026, scouting the New Orleans Saints offense for the Bears defense: injury flags for both teams, a note that data runs through Week 9 and only uses games before Week 11, and scouting notes that cite sample sizes such as 83 of 295 targets and 96 of 143 runs.",
+    "imageCaption": "Live Bears scout page, Week 11 of 2026: the Saints offense, scouted for the Bears defense. Each number shows its sample and uses only games already played.",
+    "imageCredit": "Screenshot from the live site. Data: nflverse.",
     "extraImages": [
       {
         "src": "assets/img/nfl-scout-home.jpg",
@@ -151,13 +151,7 @@ export default [
         "caption": "Product example: simulated recommendations, not observed conversion rates. “Yard Line 98” denotes the opponent’s two-yard line in this app."
       }
     ],
-    "artifactLinks": [
-      {
-        "label": "Original presentation poster (PDF)",
-        "url": "assets/img/thesis-poster-original.pdf"
-      }
-    ],
-    "artifactNote": "This is the poster as presented. Its conclusion has a wording error (situational data cannot fully explain coaching decisions), and some template placeholder text remains.",
+    "artifactLinks": [],
     "slug": "nfl-formation-recommender",
     "sport": "NFL",
     "card": "When should an NFL offense line up in shotgun or under center? I modeled 15 seasons of nflfastR play-by-play in R and built a Shiny app that ranks formation and play calls for any situation. Under center converted 3rd-and-short more often in every season."
