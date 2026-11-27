@@ -88,7 +88,7 @@ ${p.findings.map(f => `<tr><th scope="row">${esc(f.finding)}<span>${esc(f.compar
 </tbody></table></div>
 <ul class="note-list">${p.findings.map(f => `<li><strong>${esc(f.finding)}.</strong> ${esc(f.limitation)}</li>`).join('')}</ul></section>`;
   }
-  return `<section class="detail-section"><h2>${esc(p.findingsTitle || 'Findings')}</h2><ol class="findings-list">${p.findings.map(f => `<li>${esc(f)}</li>`).join('')}</ol></section>`;
+  return `<section class="detail-section"><h2>${esc(p.findingsTitle || 'Findings')}</h2>${p.findingsNote ? `<p class="table-caption">${esc(p.findingsNote)}</p>` : ''}<ol class="findings-list">${p.findings.map(f => `<li>${esc(f)}</li>`).join('')}</ol></section>`;
 };
 
 const linkLabels = { repository: 'Code on GitHub', report: 'Full write-up', demo: 'Interactive app' };
