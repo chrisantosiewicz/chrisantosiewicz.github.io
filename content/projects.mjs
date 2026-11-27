@@ -369,69 +369,77 @@ export default [
   {
     "title": "MLS Partnership Tracker",
     "category": "Sponsorship",
-    "status": "in progress",
-    "updated": "2026-10-25",
-    "subtitle": "A sourced view of club partnerships and public attention.",
-    "summary": "Which brands partner with MLS clubs, and what draws attention around matches and new deals? This project connects partnership research with a planned public-attention pipeline. The current foundation includes a club reference list and Python/DuckDB data tests, with versioned sponsorship records and attention analysis in development.",
-    "image": "assets/img/mls-research-design.svg",
-    "imageAlt": "MLS Partnership Tracker research design: source major partnerships, structure a versioned history, and explore public attention. These are planned pipeline stages. The current foundation is a club reference list and Python/DuckDB test runner.",
-    "imageCaption": "Research design, not a results chart. The partnership dataset and attention pipeline are in development; no sponsorship findings or live tracking are represented here.",
-    "imageCredit": "Research design: Chris Antosiewicz.",
-    "overview": "Which product categories sponsor MLS clubs, and how does public attention to clubs and sponsor brands change around matches and new deals? This project aims to build a sourced, versioned view of major partnerships as a starting point for partnership research. Public attention is a proxy for interest, not a measure of sponsor value.\n\nThe initial scope covers front-of-kit, sleeve, and stadium naming partnerships. So far there is a club reference table, a project scaffold and a Python/DuckDB test runner. Sponsor research and the wider pipeline are in development.\n\nPlanned work includes source URLs and check dates for partnership records, historical partnership versions for as-of joins, Wikimedia pageview ingestion, MLS schedule ingestion, a trailing attention baseline, match-day lift, and a Quarto page rebuilt with GitHub Actions. There are no supported findings or real chart exports yet.",
+    "status": "live",
+    "updated": "2026-11-26",
+    "subtitle": "Who sponsors every MLS club, and how much public attention clubs and sponsors get on match day. A sourced dataset with a daily pipeline.",
+    "summary": "",
+    "image": "assets/img/mls-category-share.svg",
+    "imageAlt": "Stacked bar chart of 85 current MLS sponsorship deals by sponsor category. Health Care leads with 15 (8 front of kit, 5 sleeve, 2 stadium name), then Banking & Financial Services 14 (6, 2, 6), Consumer Goods 8, Automotive 7, Insurance 6, Retail & E-commerce 6, Food & Restaurants 5 and Logistics & Industrial 4. Twelve other categories hold the remaining 20 deals.",
+    "imageCaption": "Current front-of-kit, sleeve and stadium naming deals across all 30 clubs, by sponsor category. Health care leads on kits; banks lead stadium names.",
+    "imageCredit": "Data: hand-sourced deal records from the tracker’s Nov 26, 2026 build. Categories are the project’s own. Chart: Chris Antosiewicz.",
+    "overview": "Which product categories sponsor MLS clubs, and does anyone notice? This project builds a sourced, versioned record of every club’s major partnerships and joins it to daily public attention for each club and sponsor brand. Public attention is a proxy for interest, not a measure of what a sponsorship is worth.\n\nDataset v0.1 is complete for 2026: front-of-kit partners for all 30 clubs, sleeve partners for the 26 clubs that sell one (the other 4 carry only the league-wide Apple TV patch), and stadium naming rights for the 25 clubs whose stadium name is sold. That is 85 current deals with 77 brands, and every row cites a source and the date it was checked. Deals are stored as a type 2 history, so any date can be queried as of that day.\n\nEvery morning GitHub Actions pulls new Wikipedia pageviews (Wikimedia API, back to 2023) and MLS results (American Soccer Analysis), rebuilds a DuckDB warehouse with SQL models, runs 18 SQL data tests, and publishes a four-page Quarto site. If any test fails, nothing is published and the previous day’s page stays up. Match-day lift compares a club’s views on the day of a match with a trailing 28-day baseline, across 4,206 club match days.\n\nThe live site has a searchable sponsor directory with a source on every deal, a profile for every club with open categories to research, a brand directory, and the attention analyses below.",
     "findings": [
-      "No findings yet. Sponsor records and pageview data have not been collected, and charts made from synthetic test data are left out on purpose."
+      "Health care is the biggest buyer of MLS sponsorship: 15 of 85 current deals. Seven clubs wear a hospital or health system on the front of the shirt (8 of 32 front-of-kit deals), and 14 of 30 clubs sell at least one of the three assets to a health care brand.",
+      "Banks lead stadium naming with 6 of 25 named stadiums, and BMO is on the front of three clubs’ kits (LAFC, Toronto and Montréal).",
+      "5 of the 25 stadium names are sold by an outside venue owner, an NFL team or a university, rather than by the MLS club.",
+      "Portland gets the biggest typical match-day jump in Wikipedia attention of any club in 2026, a median of +63% over its baseline.",
+      "Winning matters a little: the median match-day lift for a club’s page is +56% after a home win and +42% after a home loss.",
+      "18 of 30 clubs are getting more Wikipedia views in 2026 than over the same part of 2025. Chicago Fire is up most (+58%).",
+      "Sponsors mostly don’t get noticed on match day. Once the weekend dip is accounted for (most matches fall on a weekend, when company pages get fewer views), 4 of 58 club and sponsor pairs get reliably more attention on match days, 5 get reliably less and 49 show no clear difference (sign test with a Benjamini-Hochberg adjustment)."
     ],
     "limitations": [
       "Wikipedia pageviews measure public attention, not sponsorship value, attribution, or return on investment.",
-      "The initial scope covers kit-front, sleeve, and stadium naming partners rather than complete partner lists. Deal values will be labeled reported and included only when a source states them.",
-      "Club Wikipedia article titles remain unverified; redirects may affect view counts.",
-      "Sponsor data, ingestion, SQL models, daily workflows, charts, and a live page remain unfinished or unverified. A daily pipeline is planned, not operating.",
+      "Scope is front of kit, sleeve and stadium naming, not every partner a club has. No current deal has a reported value, so the project makes no claims about deal size.",
+      "Sponsor categories are the project’s own, defined in the repository.",
+      "A few rows are still waiting on stronger sources, such as Portland’s away-kit front and Sporting KC’s new stadium name. They are listed openly in the repository rather than guessed.",
+      "Some brand Wikipedia titles are still being confirmed, and redirects can affect view counts.",
       "Planned analyses are described in the project brief; there is no formal public pre-registration."
     ],
     "contribution": "I wrote the project brief, research questions, design, data-source requirements and schedule, and set the rules for what the project may claim. I set up the repository, chose the license and a pull-request review workflow, and own the review of each step.",
     "tools": [
-      "Git / GitHub",
       "Python",
+      "SQL",
       "DuckDB",
-      "Zero-row data-quality tests",
-      "Versioned CSV files"
+      "Type 2 (versioned) history",
+      "As-of joins",
+      "Data tests that gate publishing",
+      "Wikimedia Pageviews API",
+      "Sign test with FDR adjustment",
+      "Quarto",
+      "Plotly",
+      "GitHub Actions",
+      "GitHub Pages"
     ],
-    "plannedTools": [
-      "SQL models and type 2 partnership history",
-      "Wikimedia pageview and MLS schedule ingestion",
-      "Trailing attention baseline and match-day lift",
-      "Quarto publishing",
-      "GitHub Actions daily rebuild"
-    ],
+    "plannedTools": [],
     "dataSources": [
       {
-        "name": "Club reference CSV",
-        "coverage": "MLS club reference list for the 2026 season; Wikipedia titles not yet verified",
-        "refresh": "Manual"
-      },
-      {
-        "name": "Partnership records",
-        "coverage": "Hand-researched club and brand announcements planned; sponsor rows not committed at handoff",
-        "refresh": "Manual, versioned, with a source URL and check date per record planned"
+        "name": "Partnership records (hand-sourced)",
+        "coverage": "85 current front-of-kit, sleeve and stadium naming deals for all 30 clubs, 77 brands; every row has a source URL and a check date",
+        "refresh": "Manual, versioned; dataset v0.1 tagged Nov 13, 2026"
       },
       {
         "name": "Wikimedia Pageviews API",
-        "coverage": "Planned public-attention input; not yet collected",
-        "refresh": "Daily refresh planned, not live"
+        "coverage": "Daily views for every club and sponsor brand article since Jan 1, 2023",
+        "refresh": "Daily at 09:17 UTC"
       },
       {
-        "name": "American Soccer Analysis schedules",
-        "coverage": "Planned match-date input; ingestion not yet verified",
-        "refresh": "Daily refresh planned, not live"
+        "name": "American Soccer Analysis",
+        "coverage": "MLS schedules and results, 4,206 club match days",
+        "refresh": "Daily"
       }
     ],
-    "links": {},
+    "links": {
+      "repository": "https://github.com/chrisantosiewicz/MLS-partnership-tracker",
+      "demo": "https://chrisantosiewicz.github.io/MLS-partnership-tracker/"
+    },
     "tags": [
       "Soccer · MLS",
-      "Partnership research"
+      "Python · SQL · DuckDB",
+      "Rebuilt daily"
     ],
     "slug": "mls-partnership-tracker",
     "sport": "MLS",
-    "card": "A sourced, versioned database of MLS club partnerships, set up to measure public attention around matches and new deals. In progress: the club reference data and a tested pipeline scaffold are built. No findings yet."
+    "card": "A sourced database of all 85 front-of-kit, sleeve and stadium naming deals across the 30 MLS clubs, joined to daily Wikipedia attention and rebuilt every morning. Health care is the biggest sponsor category, and most sponsors get no clear match-day bump.",
+    "findingsTitle": "What the data says"
   }
 ];

@@ -131,7 +131,7 @@ ${p.related ? (() => { const r = projects.find(x => x.slug === p.related.slug); 
     <section><h2>Tools and methods</h2><div class="chip-list">${p.tools.map(t => `<span>${esc(t)}</span>`).join('')}</div>
     ${p.plannedTools?.length ? `<h3>Planned, not built yet</h3><div class="chip-list planned">${p.plannedTools.map(t => `<span>${esc(t)}</span>`).join('')}</div>` : ''}</section>
     <section><h2>Data</h2><ul class="source-list">${sources}</ul></section>
-    ${p.links?.demo ? '<p class="side-note">The app runs on free hosting and can take a few seconds to wake up.</p>' : ''}
+    ${p.links?.demo?.includes('shinyapps') ? '<p class="side-note">The app runs on free hosting and can take a few seconds to wake up.</p>' : ''}
   </aside>
 </div>
 <nav class="wrap project-pager" aria-label="More projects">
